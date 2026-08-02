@@ -9,6 +9,7 @@
   const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const finePointer = window.matchMedia('(pointer: fine)');
+  const BOOKING_EMAIL = 'Project.tenoften@gmail.com';
   const igUrl = (username) => `https://www.instagram.com/${username}/`;
   const cityOrder = ['Jakarta', 'Tangerang', 'Serang', 'Bandung', 'Medan'];
 
@@ -33,12 +34,20 @@
   const activeCityArtists = $('#activeCityArtists');
   const activeCityGenres = $('#activeCityGenres');
   const cityStatus = $('#cityStatus');
+  const deckGallery = $('[data-deck-gallery]');
+  const deckViewport = $('#actOneDeck');
+  const deckSlides = $$('[data-deck-slide]');
+  const deckDots = $$('[data-deck-index]');
+  const deckCounter = $('#deckCounter');
+  const deckPrev = $('#deckPrev');
+  const deckNext = $('#deckNext');
   const bookingForm = $('#bookingForm');
   const bookingArtist = $('#bookingArtist');
   const eventType = $('#eventType');
   const eventCity = $('#eventCity');
   const eventDate = $('#eventDate');
   const eventNotes = $('#eventNotes');
+  const emailBooking = $('#emailBooking');
   const copyBooking = $('#copyBooking');
   const formStatus = $('#formStatus');
   const toast = $('#toast');
@@ -64,6 +73,7 @@
     filter: 'All',
     view: 'grid',
     modalIndex: 0,
+    deckIndex: 0,
   };
 
   let toastTimer = 0;
@@ -429,7 +439,7 @@
         });
       });
     }, { rootMargin: '-35% 0px -55% 0px', threshold: 0 });
-    ['collective', 'artists', 'cities', 'booking'].forEach((id) => {
+    ['collective', 'artists', 'cities', 'act-one', 'booking'].forEach((id) => {
       const section = document.getElementById(id);
       if (section) sectionObserver.observe(section);
     });
@@ -695,6 +705,16 @@
   }
 
   function initModal() {
+    $$('.act-one-lineup a[href^="#artist-"]').forEach((link) => {
+      link.addEventListener('click', (event) => {
+        const artistId = link.hash.replace('#artist-', '');
+        const index = artists.findIndex((artist) => artist.id === artistId);
+        if (index < 0) return;
+        event.preventDefault();
+        openArtist(index, { historyMode: 'push' });
+      });
+    });
+
     $('#modalClose').addEventListener('click', requestCloseArtist);
     $('#modalPrev').addEventListener('click', () => {
       applyModalArtist(state.modalIndex - 1);
@@ -764,6 +784,49 @@
     window.addEventListener('hashchange', syncModalFromLocation);
   }
 
+  function updateDeck(index, announce = true) {
+    if (!deckSlides.length || !deckViewport || !deckCounter) return;
+    state.deckIndex = (index + deckSlides.length) % deckSlides.length;
+    const nextIndex = (state.deckIndex + 1) % deckSlides.length;
+
+    deckSlides.forEach((slide, slideIndex) => {
+      const active = slideIndex === state.deckIndex;
+      slide.classList.toggle('is-active', active);
+      slide.classList.toggle('is-next', slideIndex === nextIndex);
+      slide.setAttribute('aria-hidden', String(!active));
+      const link = $('a', slide);
+      if (link) link.tabIndex = active ? 0 : -1;
+    });
+
+    deckDots.forEach((dot, dotIndex) => {
+      const active = dotIndex === state.deckIndex;
+      dot.classList.toggle('is-active', active);
+      dot.setAttribute('aria-pressed', String(active));
+    });
+
+    const counterValue = $('strong', deckCounter);
+    if (counterValue) counterValue.textContent = String(state.deckIndex + 1).padStart(2, '0');
+    if (announce) {
+      const caption = $('figcaption', deckSlides[state.deckIndex])?.textContent.trim() || 'Deck preview';
+      deckViewport.setAttribute('aria-label', `ACT ONE deck previews. ${caption}.`);
+    }
+  }
+
+  function initDeckGallery() {
+    if (!deckGallery || !deckViewport || !deckCounter || !deckPrev || !deckNext || !deckSlides.length) return;
+    deckPrev.addEventListener('click', () => updateDeck(state.deckIndex - 1));
+    deckNext.addEventListener('click', () => updateDeck(state.deckIndex + 1));
+    deckDots.forEach((dot) => {
+      dot.addEventListener('click', () => updateDeck(Number(dot.dataset.deckIndex)));
+    });
+    deckViewport.addEventListener('keydown', (event) => {
+      if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+      event.preventDefault();
+      updateDeck(state.deckIndex + (event.key === 'ArrowRight' ? 1 : -1));
+    });
+    updateDeck(0, false);
+  }
+
   function formatDate(value) {
     if (!value) return 'Select a date';
     const date = new Date(`${value}T00:00:00`);
@@ -785,6 +848,18 @@
     return `Hello Ten of Ten, I would like to ask about booking.\n\nArtist / package: ${values.artist}\nEvent type: ${values.type}\nCity / venue: ${values.city || 'To be confirmed'}\nDate: ${values.date ? formatDate(values.date) : 'To be confirmed'}\nNotes: ${values.notes || 'No additional notes yet.'}`;
   }
 
+  function buildBookingSubject() {
+    const values = bookingValues();
+    const locationLabel = values.city || 'Venue TBC';
+    return `Ten of Ten booking — ${values.artist} — ${locationLabel}`;
+  }
+
+  function buildBookingMailto() {
+    const subject = encodeURIComponent(buildBookingSubject());
+    const body = encodeURIComponent(buildBookingBrief());
+    return `mailto:${BOOKING_EMAIL}?subject=${subject}&body=${body}`;
+  }
+
   function updateBookingPreview() {
     const values = bookingValues();
     $('#previewArtist').textContent = values.artist;
@@ -804,8 +879,20 @@
     ['input', 'change'].forEach((eventName) => bookingForm.addEventListener(eventName, updateBookingPreview));
     updateBookingPreview();
 
-    bookingForm.addEventListener('submit', async (event) => {
+    bookingForm.addEventListener('submit', (event) => {
       event.preventDefault();
+      emailBooking.setAttribute('aria-busy', 'true');
+      formStatus.textContent = `Opening your email app with ${BOOKING_EMAIL} and the completed booking brief.`;
+      showToast('Opening your email app.');
+      window.location.href = buildBookingMailto();
+      window.setTimeout(() => emailBooking.removeAttribute('aria-busy'), 900);
+    });
+
+    copyBooking.addEventListener('click', async () => {
+      if (!bookingForm.reportValidity()) {
+        formStatus.textContent = 'Complete the required booking details before copying the brief.';
+        return;
+      }
       if (bookingCopyPending) return;
       bookingCopyPending = true;
       const originalLabel = $('span', copyBooking).textContent;
@@ -813,9 +900,9 @@
       copyBooking.setAttribute('aria-busy', 'true');
       try {
         await copyText(buildBookingBrief());
-        $('span', copyBooking).textContent = 'BRIEF COPIED';
-        formStatus.textContent = 'Booking brief copied. Open Instagram when you are ready to paste it into a DM.';
-        showToast('Booking brief copied to clipboard.');
+        $('span', copyBooking).textContent = 'READY FOR INSTAGRAM';
+        formStatus.textContent = 'Booking brief copied. Open @tenoften.id and paste it into a DM.';
+        showToast('Booking brief copied for Instagram.');
       } catch {
         $('span', copyBooking).textContent = 'COPY UNAVAILABLE';
         formStatus.textContent = 'Copy is unavailable in this browser. Keep this page open and use the preview as your DM reference.';
@@ -870,6 +957,7 @@
   initPointerEffects();
   initHeroParallax();
   initModal();
+  initDeckGallery();
   initBooking();
 
   window.setTimeout(syncModalFromLocation, 60);

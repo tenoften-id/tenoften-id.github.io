@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#060608">
   <meta name="color-scheme" content="dark">
-  <meta name="description" content="Ten of Ten — ten DJs, five cities, one forward-moving Indonesian collective.">
+  <meta name="description" content="Ten of Ten — ten DJs, five cities, one forward-moving Indonesian collective. Explore ACT ONE and book the collective.">
   <meta property="og:title" content="TEN OF TEN — Indonesian DJ Collective">
-  <meta property="og:description" content="Meet the ten artists of @tenoften.id.">
+  <meta property="og:description" content="Meet the ten artists of @tenoften.id and explore ACT ONE.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="assets/images/og-tenoften.png">
   <meta property="og:image:type" content="image/png">
@@ -16,7 +16,8 @@
   <meta property="og:image:alt" content="Ten of Ten artist collective">
   <meta name="twitter:card" content="summary_large_image">
   <title>TEN OF TEN — Indonesian DJ Collective</title>
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/images/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
   <link rel="preload" as="image" href="assets/images/elainne.webp" fetchpriority="high">
   <link rel="stylesheet" href="styles.css">
   <script>document.documentElement.classList.add('js-pending');</script>
@@ -26,6 +27,13 @@
       "@type": "Organization",
       "name": "Ten of Ten",
       "description": "An Indonesian DJ collective connecting ten artists across five cities.",
+      "email": "Project.tenoften@gmail.com",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "booking",
+        "email": "Project.tenoften@gmail.com",
+        "url": "https://www.instagram.com/tenoften.id/"
+      },
       "sameAs": ["https://www.instagram.com/tenoften.id/"]
     }
   </script>
@@ -39,9 +47,7 @@
   <div class="cursor-ring" aria-hidden="true"><span>OPEN</span></div>
 
   <div class="loader" id="loader" role="status" aria-live="polite" aria-label="Loading Ten of Ten">
-    <div class="loader-logo" aria-hidden="true">
-      <span>10</span><i></i><span>10</span>
-    </div>
+    <img class="loader-logo" src="assets/images/tenoften-logo.png" width="800" height="574" alt="" aria-hidden="true">
     <div class="loader-bottom">
       <span id="loaderStatus">LOADING THE COLLECTIVE</span>
       <strong id="loaderPercent">00</strong>
@@ -51,16 +57,17 @@
 
   <header class="site-header" id="header">
     <a class="brand magnetic" href="#top" aria-label="Ten of Ten home">
-      <span class="brand-mark" aria-hidden="true"><b>10</b><i></i><b>10</b></span>
+      <img class="brand-mark" src="assets/images/tenoften-logo.png" width="800" height="574" alt="" aria-hidden="true">
       <span class="brand-word">TENOFTEN.ID</span>
     </a>
     <nav class="desktop-nav" aria-label="Primary navigation">
       <a href="#collective">Collective</a>
       <a href="#artists">Artists</a>
       <a href="#cities">Cities</a>
+      <a href="#act-one">Act One</a>
       <a href="#booking">Booking</a>
     </nav>
-    <a class="header-cta magnetic" href="https://www.instagram.com/tenoften.id/" target="_blank" rel="noreferrer">Instagram <span aria-hidden="true">↗</span></a>
+    <a class="header-cta magnetic" href="https://www.instagram.com/tenoften.id/" target="_blank" rel="noopener noreferrer">Instagram <span aria-hidden="true">↗</span></a>
     <button class="menu-button" id="menuButton" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">
       <span></span><span></span>
     </button>
@@ -71,7 +78,8 @@
       <a href="#collective"><span>01</span>Collective</a>
       <a href="#artists"><span>02</span>Artists</a>
       <a href="#cities"><span>03</span>Cities</a>
-      <a href="#booking"><span>04</span>Booking</a>
+      <a href="#act-one"><span>04</span>Act One</a>
+      <a href="#booking"><span>05</span>Booking</a>
     </nav>
     <nav class="mobile-social" aria-label="Social media">
       <a class="mobile-instagram" href="https://www.instagram.com/tenoften.id/" target="_blank" rel="noreferrer">@tenoften.id <span aria-hidden="true">↗</span></a>
@@ -207,14 +215,104 @@
       </div>
     </section>
 
+    <section class="act-one section-pad" id="act-one" aria-labelledby="actOneTitle">
+      <div class="act-one-aura" aria-hidden="true"></div>
+      <div class="section-label light reveal"><span>04</span><p>ACT ONE</p></div>
+      <div class="act-one-layout">
+        <div class="act-one-copy reveal">
+          <p class="act-one-status"><span>ENTER: TEN OF TEN</span><time datetime="2026-08">AUGUST 2026</time></p>
+          <h2 id="actOneTitle">ENTER:<br>TEN OF TEN</h2>
+          <p class="act-one-manifesto">Built by culture. Assembled by movement. Ten of Ten introduces the collective at PATS X—a high-energy night shaped by the music, people, and movement that bring us together.</p>
+
+          <dl class="act-one-meta">
+            <div><dt>VENUE</dt><dd>PATS X</dd></div>
+            <div><dt>DATE</dt><dd><time datetime="2026-08">AUGUST 2026</time></dd></div>
+            <div><dt>STATUS</dt><dd>DATE TBA</dd></div>
+          </dl>
+
+          <div class="act-one-lineup">
+            <h3 id="actOneLineupTitle">LINEUP</h3>
+            <ul aria-labelledby="actOneLineupTitle">
+              <li><a href="#artist-a-dollar">A$</a></li>
+              <li><a href="#artist-mikey">MIKEY</a></li>
+              <li><a href="#artist-nade">NADE</a></li>
+              <li><a href="#artist-pakopapi">PAKOPAPI</a></li>
+              <li><a href="#artist-fei-rb">FEI.RB</a></li>
+              <li><a href="#artist-ba-shakur">BA SHAKUR</a></li>
+              <li><a href="#artist-elainne">ELAINNE</a></li>
+              <li><a href="#artist-dhiyaulhaq">DHIYAULHAQ</a></li>
+              <li><a href="#artist-jxxzy">JXXZY</a></li>
+            </ul>
+            <p>WITH PATS RESIDENTS</p>
+          </div>
+
+          <div class="act-one-actions">
+            <a class="deck-primary magnetic" href="assets/docs/ten-of-ten-act-one-public.pdf" target="_blank" rel="noopener">VIEW FULL DECK <span aria-hidden="true">↗</span><small>PDF · 1.0 MB</small></a>
+            <a class="deck-download magnetic" href="assets/docs/ten-of-ten-act-one-public.pdf" download>DOWNLOAD PDF <span aria-hidden="true">↓</span></a>
+            <a class="deck-book" href="#booking">BOOK TEN OF TEN <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+
+        <div class="act-one-deck reveal" data-deck-gallery>
+          <div class="deck-orbit" aria-hidden="true"></div>
+          <section class="deck-viewport" id="actOneDeck" tabindex="0" aria-roledescription="carousel" aria-label="ACT ONE deck previews">
+            <div class="deck-track">
+              <figure class="deck-slide is-active" data-deck-slide aria-hidden="false">
+                <a href="assets/docs/ten-of-ten-act-one-public.pdf" target="_blank" rel="noopener" aria-label="Open the ACT ONE deck from the cover preview">
+                  <img src="assets/images/act-one/act-one-cover.webp" alt="ACT ONE deck cover with the Ten of Ten logo on a purple, navy, and cyan background" width="1440" height="810" loading="lazy" decoding="async">
+                </a>
+                <figcaption><span>01</span> COVER</figcaption>
+              </figure>
+              <figure class="deck-slide" data-deck-slide aria-hidden="true">
+                <a href="assets/docs/ten-of-ten-act-one-public.pdf" target="_blank" rel="noopener" tabindex="-1" aria-label="Open the ACT ONE deck from the movement preview">
+                  <img src="assets/images/act-one/act-one-movement.webp" alt="Ten of Ten collective portrait with the statement Built by culture, assembled by movement" width="1440" height="810" loading="lazy" decoding="async">
+                </a>
+                <figcaption><span>02</span> MOVEMENT</figcaption>
+              </figure>
+              <figure class="deck-slide" data-deck-slide aria-hidden="true">
+                <a href="assets/docs/ten-of-ten-act-one-public.pdf" target="_blank" rel="noopener" tabindex="-1" aria-label="Open the ACT ONE deck from the roster preview">
+                  <img src="assets/images/act-one/act-one-roster.webp" alt="Portrait collage of all ten Ten of Ten artists with their names" width="1440" height="810" loading="lazy" decoding="async">
+                </a>
+                <figcaption><span>03</span> THE ROSTER</figcaption>
+              </figure>
+              <figure class="deck-slide" data-deck-slide aria-hidden="true">
+                <a href="assets/docs/ten-of-ten-act-one-public.pdf" target="_blank" rel="noopener" tabindex="-1" aria-label="Open the ACT ONE deck from the event details preview">
+                  <img src="assets/images/act-one/act-one-event.webp" alt="ACT ONE event details for PATS X in August 2026 with the corrected JXXZY lineup" width="1440" height="810" loading="lazy" decoding="async">
+                </a>
+                <figcaption><span>04</span> EVENT DETAILS</figcaption>
+              </figure>
+            </div>
+          </section>
+          <div class="deck-controls">
+            <p id="deckCounter" aria-live="polite"><strong>01</strong> / 04</p>
+            <div class="deck-dots" role="group" aria-label="Choose a deck preview">
+              <button class="is-active" type="button" data-deck-index="0" aria-label="Show cover preview" aria-pressed="true"></button>
+              <button type="button" data-deck-index="1" aria-label="Show movement preview" aria-pressed="false"></button>
+              <button type="button" data-deck-index="2" aria-label="Show roster preview" aria-pressed="false"></button>
+              <button type="button" data-deck-index="3" aria-label="Show event details preview" aria-pressed="false"></button>
+            </div>
+            <div class="deck-arrows">
+              <button id="deckPrev" type="button" aria-label="Previous deck preview"><svg viewBox="0 0 32 20" aria-hidden="true"><path d="M31 10H2M10 2l-8 8 8 8" /></svg></button>
+              <span aria-hidden="true"></span>
+              <button id="deckNext" type="button" aria-label="Next deck preview"><svg viewBox="0 0 32 20" aria-hidden="true"><path d="M1 10h29M22 2l8 8-8 8" /></svg></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="booking section-pad" id="booking" aria-labelledby="bookingTitle">
       <div class="booking-aura" aria-hidden="true"></div>
       <div class="booking-layout">
         <div class="booking-column">
-          <div class="section-label light reveal"><span>04</span><p>BOOKING</p></div>
+          <div class="section-label light reveal"><span>05</span><p>BOOKING</p></div>
           <h2 class="reveal" id="bookingTitle">BRING THE<br>RIGHT<br>ENERGY.</h2>
-          <p class="booking-intro reveal">Build a booking brief for an artist, multiple talents, or the complete Ten of Ten roster. Your message is prepared locally and ready to send through Instagram.</p>
-          <noscript><p class="no-js-note booking-no-js">Booking brief tools need JavaScript. You can still contact <a href="https://www.instagram.com/tenoften.id/" target="_blank" rel="noreferrer">@tenoften.id on Instagram</a>.</p></noscript>
+          <p class="booking-intro reveal">Build a booking brief for an artist, multiple talents, or the complete Ten of Ten roster. Send it directly by email or copy it for an Instagram DM.</p>
+          <div class="booking-direct reveal">
+            <a href="mailto:Project.tenoften@gmail.com"><span>EMAIL</span>Project.tenoften@gmail.com <b aria-hidden="true">↗</b></a>
+            <a href="https://www.instagram.com/tenoften.id/" target="_blank" rel="noreferrer"><span>INSTAGRAM</span>@tenoften.id <b aria-hidden="true">↗</b></a>
+          </div>
+          <noscript><p class="no-js-note booking-no-js">Contact booking directly through <a href="mailto:Project.tenoften@gmail.com">Project.tenoften@gmail.com</a> or <a href="https://www.instagram.com/tenoften.id/" target="_blank" rel="noreferrer">@tenoften.id on Instagram</a>.</p></noscript>
           <form class="booking-form reveal" id="bookingForm">
             <label>
               <span>ARTIST / PACKAGE <b aria-hidden="true">*</b></span>
@@ -235,7 +333,7 @@
             </label>
             <label>
               <span>CITY / VENUE <b aria-hidden="true">*</b></span>
-              <input id="eventCity" name="venue" type="text" placeholder="Jakarta — Venue name" autocomplete="organization" required>
+              <input id="eventCity" name="venue" type="text" placeholder="Jakarta — Venue name" autocomplete="organization" maxlength="120" required>
             </label>
             <label>
               <span>EVENT DATE <b aria-hidden="true">*</b></span>
@@ -243,12 +341,12 @@
             </label>
             <label class="message-field">
               <span>NOTES <em>OPTIONAL</em></span>
-              <textarea id="eventNotes" name="notes" rows="3" placeholder="Audience size, set duration, production notes, budget range..."></textarea>
+              <textarea id="eventNotes" name="notes" rows="3" maxlength="700" placeholder="Audience size, set duration, production notes, budget range..."></textarea>
             </label>
             <p class="privacy-note"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1" /><path d="M5 7V5a3 3 0 0 1 6 0v2" /></svg>Prepared locally · Nothing is sent automatically</p>
           </form>
         </div>
-        <aside class="booking-preview reveal" aria-labelledby="previewTitle">
+        <section class="booking-preview reveal" aria-labelledby="previewTitle">
           <h3 id="previewTitle">BOOKING BRIEF PREVIEW</h3>
           <dl>
             <div><dt>ARTIST / PACKAGE</dt><dd id="previewArtist">Full Ten of Ten roster</dd></div>
@@ -258,26 +356,33 @@
             <div><dt>NOTES</dt><dd id="previewNotes">Audience size, set duration, production notes, budget range...</dd></div>
           </dl>
           <div class="preview-message" id="previewMessage">A booking brief for the complete Ten of Ten roster, prepared locally and ready to share.</div>
+          <p class="booking-recipient"><span>BOOKING EMAIL</span><a href="mailto:Project.tenoften@gmail.com">Project.tenoften@gmail.com</a></p>
           <div class="booking-actions">
-            <button class="copy-booking magnetic" type="submit" form="bookingForm" id="copyBooking">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="5" width="11" height="14" rx="1" /><path d="M5 16H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1" /></svg>
-              <span>COPY BOOKING BRIEF</span>
+            <button class="email-booking magnetic" type="submit" form="bookingForm" id="emailBooking">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3zM3 7l9 7 9-7" /></svg>
+              <span>EMAIL BOOKING BRIEF</span>
             </button>
-            <a class="open-instagram magnetic" id="openInstagram" href="https://www.instagram.com/tenoften.id/" target="_blank" rel="noreferrer">OPEN INSTAGRAM <span aria-hidden="true">↗</span></a>
+            <button class="copy-booking magnetic" type="button" id="copyBooking">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="5" width="11" height="14" rx="1" /><path d="M5 16H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1" /></svg>
+              <span>COPY FOR INSTAGRAM</span>
+            </button>
+            <a class="open-instagram magnetic" id="openInstagram" href="https://www.instagram.com/tenoften.id/" target="_blank" rel="noreferrer">DM INSTAGRAM <span aria-hidden="true">↗</span></a>
           </div>
-          <p class="form-status" id="formStatus"></p>
+          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
           <p class="privacy-note preview-privacy"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1" /><path d="M5 7V5a3 3 0 0 1 6 0v2" /></svg>Prepared locally · Nothing is sent automatically</p>
-        </aside>
+        </section>
       </div>
     </section>
   </main>
 
   <footer class="site-footer section-pad">
-    <div class="footer-logo" role="img" aria-label="Ten of Ten"><span>10</span><i></i><span>10</span></div>
+    <img class="footer-logo" src="assets/images/tenoften-logo.png" width="800" height="574" alt="Ten of Ten">
     <nav class="footer-links" aria-label="Footer navigation">
       <a href="#artists">Artists</a>
       <a href="#cities">Cities</a>
+      <a href="#act-one">Act One</a>
       <a href="#booking">Booking</a>
+      <a href="mailto:Project.tenoften@gmail.com">Email</a>
       <a href="https://www.instagram.com/tenoften.id/" target="_blank" rel="noreferrer">Instagram <span aria-hidden="true">↗</span></a>
     </nav>
     <div class="footer-bottom">

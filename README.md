@@ -10,7 +10,8 @@ Static, responsive artist-collective website for **@tenoften.id**. It runs witho
 - Ten-artist roster with city filters, live result count, and persistent grid/list views
 - Fullscreen artist profiles with deep links, browser-history support, keyboard navigation, booking shortcut, and copyable profile links
 - Interactive five-city Sound Map generated from the artist data
-- Live booking-brief preview with separate copy and Instagram actions
+- ACT ONE event section with an accessible four-frame gallery and a sanitized 1 MB public PDF deck
+- Live booking-brief preview with direct email, copy-for-Instagram, and Instagram DM actions
 - Responsive desktop/mobile layouts, focus states, no-JavaScript fallbacks, and reduced-motion support
 - SEO, Open Graph, Twitter card, favicon, and Organization structured metadata
 
@@ -42,11 +43,15 @@ Names, usernames, cities, genres, biographies, and image paths are stored in `da
 
 ## Booking behavior
 
-The form creates a booking brief entirely in the visitor's browser. “Copy booking brief” copies it to the clipboard; “Open Instagram” is a separate, explicit link so browsers do not block it as a popup. Nothing is submitted or stored automatically.
+The form creates a booking brief entirely in the visitor's browser. “Email booking brief” opens the visitor's email app with `Project.tenoften@gmail.com`, subject, and body prefilled. “Copy for Instagram” copies the same brief for a DM to `@tenoften.id`. Nothing is submitted to or stored by the website.
+
+## ACT ONE deck
+
+The website serves `assets/docs/ten-of-ten-act-one-public.pdf`, a compact public edition containing the cover, corrected manifesto, roster, corrected event details, and closing page. Internal planning, future TBC acts, and budget pages from the source deck are intentionally excluded from the public website. The original PDF in `DATA IG/` remains unchanged.
 
 ## Design references
 
-The accepted section concepts used for the redesign are saved in `design/concepts/01-hero.png` through `design/concepts/05-booking.png`.
+The accepted section concepts used for the redesign are saved in `design/concepts/01-hero.png` through `design/concepts/06-act-one.png`.
 
 Final desktop, tablet, and mobile QA captures are saved in `design/qa/`.
 
