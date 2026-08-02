@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="12" fill="#060608"/>
+  <text x="7" y="39" fill="#f6f4ef" font-family="Arial Black,Arial,sans-serif" font-size="24" font-weight="900" letter-spacing="-2">10</text>
+  <path d="M31 44 40 18h6l-9 26z" fill="#7546ff"/>
+  <text x="39" y="39" fill="#f6f4ef" font-family="Arial Black,Arial,sans-serif" font-size="24" font-weight="900" letter-spacing="-2">10</text>
+</svg>
