@@ -9,7 +9,7 @@
   const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const finePointer = window.matchMedia('(pointer: fine)');
-  const BOOKING_EMAIL = 'Project.tenoften@gmail.com';
+  const compactViewport = window.matchMedia('(max-width: 780px)');
   const igUrl = (username) => `https://www.instagram.com/${username}/`;
   const cityOrder = ['Jakarta', 'Tangerang', 'Serang', 'Bandung', 'Medan'];
 
@@ -47,7 +47,6 @@
   const eventCity = $('#eventCity');
   const eventDate = $('#eventDate');
   const eventNotes = $('#eventNotes');
-  const emailBooking = $('#emailBooking');
   const copyBooking = $('#copyBooking');
   const formStatus = $('#formStatus');
   const toast = $('#toast');
@@ -154,6 +153,7 @@
     const featured = [4, 2, 7, 6]
       .map((index) => artists[index])
       .filter(Boolean);
+    const criticalHeroIndex = compactViewport.matches ? 1 : 0;
 
     featured.forEach((artist, index) => {
       const button = document.createElement('button');
@@ -163,7 +163,7 @@
       button.setAttribute('aria-label', `Open ${artist.name} profile`);
       button.innerHTML = `
         <span class="hero-card-inner">
-          <img src="${artist.image}" alt="" width="1600" height="2000" decoding="async" ${index === 0 ? 'fetchpriority="high"' : ''} />
+          <img src="${artist.image}" alt="" width="1600" height="2000" decoding="async" fetchpriority="${index === criticalHeroIndex ? 'high' : 'low'}" />
           <span>${artist.display}</span>
         </span>`;
       button.addEventListener('click', () => openArtist(artists.indexOf(artist)));
@@ -190,7 +190,7 @@
       <span class="artist-card-media">
         <img src="${artist.image}" alt="" width="1600" height="2000" loading="lazy" decoding="async" />
       </span>
-      <span class="artist-card-info">
+      <div class="artist-card-info">
         <span class="artist-card-top"><span>${artist.order} / 10</span><span>OPEN PROFILE</span></span>
         <h3 class="artist-card-name${isLongName ? ' long-name' : ''}">${artist.display}</h3>
         <span class="artist-card-genres">${artist.genres.join(' · ')}</span>
@@ -198,7 +198,7 @@
           <span>${artist.city}</span>
           <svg class="artist-card-arrow" viewBox="0 0 32 20" aria-hidden="true"><path d="M1 10h29M22 2l8 8-8 8" /></svg>
         </span>
-      </span>
+      </div>
       <button class="artist-card-hit" type="button" aria-label="Open ${artist.name} profile, ${artist.city}"></button>`;
     $('.artist-card-hit', card).addEventListener('click', () => openArtist(artists.indexOf(artist)));
     return card;
@@ -326,7 +326,7 @@
     }
 
     setBackgroundInert(true);
-    if (reducedMotion.matches || sessionHasLoaded()) {
+    if (reducedMotion.matches || compactViewport.matches || sessionHasLoaded()) {
       loader.classList.add('skip');
       loader.remove();
       setBackgroundInert(false);
@@ -466,13 +466,13 @@
     }
   }
 
-  function focusHashTarget(hash) {
+  function focusHashTarget(hash, preventScroll = true) {
     if (!hash?.startsWith('#')) return;
     const section = $(hash);
     if (!section) return;
     const target = $('h1, h2', section) || section;
     if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
-    target.focus({ preventScroll: true });
+    target.focus({ preventScroll });
   }
 
   function initMenu() {
@@ -675,7 +675,7 @@
           && lastFocusedElement !== document.body
           && lastFocusedElement !== document.documentElement;
         if (canRestore) lastFocusedElement.focus();
-        else focusHashTarget('#artists');
+        else focusHashTarget('#artists', false);
       }
     }, reducedMotion.matches ? 0 : 430);
   }
@@ -848,18 +848,6 @@
     return `Hello Ten of Ten, I would like to ask about booking.\n\nArtist / package: ${values.artist}\nEvent type: ${values.type}\nCity / venue: ${values.city || 'To be confirmed'}\nDate: ${values.date ? formatDate(values.date) : 'To be confirmed'}\nNotes: ${values.notes || 'No additional notes yet.'}`;
   }
 
-  function buildBookingSubject() {
-    const values = bookingValues();
-    const locationLabel = values.city || 'Venue TBC';
-    return `Ten of Ten booking — ${values.artist} — ${locationLabel}`;
-  }
-
-  function buildBookingMailto() {
-    const subject = encodeURIComponent(buildBookingSubject());
-    const body = encodeURIComponent(buildBookingBrief());
-    return `mailto:${BOOKING_EMAIL}?subject=${subject}&body=${body}`;
-  }
-
   function updateBookingPreview() {
     const values = bookingValues();
     $('#previewArtist').textContent = values.artist;
@@ -879,20 +867,12 @@
     ['input', 'change'].forEach((eventName) => bookingForm.addEventListener(eventName, updateBookingPreview));
     updateBookingPreview();
 
-    bookingForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-      emailBooking.setAttribute('aria-busy', 'true');
-      formStatus.textContent = `Opening your email app with ${BOOKING_EMAIL} and the completed booking brief.`;
-      showToast('Opening your email app.');
-      window.location.href = buildBookingMailto();
-      window.setTimeout(() => emailBooking.removeAttribute('aria-busy'), 900);
-    });
+    bookingForm.addEventListener('invalid', () => {
+      formStatus.textContent = 'Complete the required booking details before copying the brief.';
+    }, true);
 
-    copyBooking.addEventListener('click', async () => {
-      if (!bookingForm.reportValidity()) {
-        formStatus.textContent = 'Complete the required booking details before copying the brief.';
-        return;
-      }
+    bookingForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
       if (bookingCopyPending) return;
       bookingCopyPending = true;
       const originalLabel = $('span', copyBooking).textContent;
